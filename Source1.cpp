@@ -9,7 +9,7 @@ const int height = 20;
 int x, y, fruitX, fruitY, score;
 int tailX[100], tailY[100];
 int nTail;
-enum eDirecton { STOP = 0, LEFT, RIGHT, UP, DOWN };
+enum eDirecton { STOP = 0, LEFT, RIGHT, UP, DOWN};
 eDirecton dir;
 void Setup()
 {
@@ -26,7 +26,7 @@ void Draw()
     system("cls"); //system("clear");
     cout << endl;
     cout << " ";
-    for (int i = 0; i < width + 2; i++)
+    for (int i = 0; i < width+2; i++)
         cout << "#";
     cout << endl;
 
@@ -62,7 +62,7 @@ void Draw()
     }
 
     cout << " ";
-    for (int i = 0; i < width + 2; i++)
+    for (int i = 0; i < width+2; i++)
         cout << "#";
     cout << endl;
     cout << " Score:" << score << endl;
@@ -73,23 +73,23 @@ void Input()
     {
         switch (_getch())
         {
-        case 'a':
-            dir = LEFT;
-            break;
-        case 'd':
-            dir = RIGHT;
-            break;
-        case 'w':
-            dir = UP;
-            break;
-        case 's':
-            dir = DOWN;
-            break;
-        case 'x':
-            gameOver = true;
-            break;
-        default:
-            break;
+            case 'a':
+                dir = LEFT;
+                break;
+            case 'd':
+                dir = RIGHT;
+                break;
+            case 'w':
+                dir = UP;
+                break;
+            case 's':
+                dir = DOWN;
+                break;
+            case 'x':
+                gameOver = true;
+                break;
+            default:
+                break;
         }
     }
 }
@@ -111,23 +111,23 @@ void Logic()
     }
     switch (dir)
     {
-    case LEFT:
-        x--;
-        break;
-    case RIGHT:
-        x++;
-        break;
-    case UP:
-        y--;
-        break;
-    case DOWN:
-        y++;
-        break;
-    default:
-        break;
+        case LEFT:
+            x--;
+            break;
+        case RIGHT:
+            x++;
+            break;
+        case UP:
+            y--;
+            break;
+        case DOWN:
+            y++;
+            break;
+        default:
+            break;
     }
     if (x > width || x < 0 || y > height || y < 0)
-        gameOver = true;
+      gameOver = true;
     //if (x >= width) x = 0; else if (x < 0) x = width - 1;
     //if (y >= height) y = 0; else if (y < 0) y = height - 1;
 
