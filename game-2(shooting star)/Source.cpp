@@ -25,8 +25,20 @@ void setcolor(int fg, int bg) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, bg * 16 + fg);
 }
+void object(int x,int y){
+	setcolor(0, 8);
+	gotoxy(x, y); printf("  ");
+}
+
+
+
 int main() {
 	//setcursor(0);
+	object(10,12);
+	object(5, 2);
+	object(80, 6);
+	object(30, 15);
+	object(65, 1);
 	setcolor(2, 4);
 	char ch = '.';
 	int x = 38, y = 20;
@@ -34,47 +46,95 @@ int main() {
 	int direction1;
 	int direction2;
 	int direction3;
+	char keyx = '.';
 
-	while (ch != 'x') {
-		//do {
+	//while (ch != 'x') {
+	do {
 		if (_kbhit()) {
 			ch = _getch();//press
-			/*if (ch == 'a') {
-				setcolor(2, 4); draw_ship(--x, y); setcolor(0, 0); printf(" "); }
-			if (ch == 'd') {
-				setcolor(0, 0); eraseship(x , y); setcolor(2, 4); draw_ship(++x, y);
-			}
-			if (ch == 's') {
-				setcolor(2, 4); draw_ship(x, y);
+				if (ch == 'a') {
+
+
+					if (x == 0) {
+						continue;
+					}
+					else {
+						setcolor(2, 4);
+						draw_ship(--x, y);
+						setcolor(0, 0);
+						printf(" ");
+						keyx = 'a';
+					}//end a
+
+				}
+				
+					
+				else if (ch == 'd') {
+
+					if (x == 113) {
+						continue;
+					}
+					else {
+
+						setcolor(0, 0);
+						eraseship(x, y);
+						setcolor(2, 4);
+						draw_ship(++x, y);
+						keyx = 'd';
+					}
+				}
+			
+				else if (ch == 's') {
+				setcolor(2, 4);
+				draw_ship(x, y);
+				keyx = 's';
+
 			}
 			fflush(stdin);
-		}*/
-			if (ch == 'a') {
-				direction1 = --x;
+		}
+			
+
+		else if(!_kbhit || keyx=='a' || keyx=='d' || keyx=='s'){
+
+			if (keyx == 'a') {
+				
+				
+				if (x == 0) {
+					continue;
+				}
+				else {
+					setcolor(2, 4);
+					draw_ship(--x, y);
+					setcolor(0, 0);
+					printf(" ");
+				}
+
 			}
-			else if (ch == 'd') {
-				direction2 = ++x;
+					
+
+			else if (keyx == 'd') {
+
+				if (x == 113) {
+					continue;
+				}
+				else {
+					setcolor(0, 0);
+					eraseship(x, y);
+					setcolor(2, 4);
+					draw_ship(++x, y);
+				}
+
 			}
+
 			else if (ch == 's') {
-				direction3 = x;
-			}// direction
+				setcolor(2, 4); 
+				draw_ship(x, y);
+			}
+			fflush(stdin);
+		
 		}
-		if (direction1 ) {
-			setcolor(2, 4); draw_ship(--x, y); setcolor(0, 0); printf(" ");
-
-		}
-		if (direction2 ) {
-			setcolor(0, 0); eraseship(x, y); setcolor(2, 4); draw_ship(++x, y);
-
-		}
-		if (direction3) {
-			draw_ship(x, y);
-
-		}
-
-		Sleep(100);
-	}
-		//} while (ch != 'x');
+		Sleep(50);
+		} while (ch != 'x');
 		return 0;
 
 	}
