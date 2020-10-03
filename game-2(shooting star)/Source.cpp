@@ -58,6 +58,12 @@ void erase_first_bullet(int x, int y) {
 	printf(" ");
 
 }
+void black_bullet(int x, int y) {
+	gotoxy(x, y);
+	setcolor(0, 0);
+	printf("                         ");
+}
+
 
 void shoot(int x1, int y1) {
 	//checkShoot = 1;
@@ -74,7 +80,7 @@ void shoot(int x1, int y1) {
 				bullet(x1 + 3, --y1);
 			}
 
-			Sleep(100);
+			Sleep(50);
 
 		}
 	}
@@ -87,7 +93,7 @@ void check(int x, int y) {
 }
 
 int main() {
-	setcursor(1);
+	setcursor(0);
 	object(10, 12);
 	object(5, 2);
 	object(80, 6);
@@ -149,6 +155,16 @@ int main() {
 				checkShoot = 1;
 				previouskeyx = keyx;
 				shoot(x, y);
+				if (keyx == 'a') {
+					black_bullet(x +3, 0);
+				}
+				if (keyx == 'd') {
+					black_bullet(x - 3, 0);
+				}
+				if (keyx == 's') {
+					black_bullet(x , 0);
+				}
+				
 				keyx = previouskeyx;
 			}
 			fflush(stdin);
@@ -192,18 +208,7 @@ int main() {
 				setcolor(2, 4);
 				draw_ship(x, y);
 			}
-			/*else if (keyx == 'i') {
-				if (y ==0 ) {
-					erase_bullet(x + 3, y);
-					y = 20;
-					continue;
-				}
-				else {
-				 erase_bullet(x + 3, y--);
-				 bullet(x + 3, --y);
-				}
-			}*/
-
+		
 			fflush(stdin);
 
 		}
