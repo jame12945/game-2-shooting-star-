@@ -3,7 +3,8 @@
 #include<conio.h>
 char ch1 = '.';
 char keyx1;
-int checkShoot = 1;
+int checkShoot ;
+char previouskeyx;
 int x;
 int y;
 int x1;
@@ -11,14 +12,14 @@ int y1;
 char ch = '.';
 void gotoxy(int x, int y)
 {
-	COORD c = {x, y };
+	COORD c = { x, y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
 void draw_ship(int x, int y)
 {
 	gotoxy(x, y); printf(" <-0-> ");
 }
-void eraseship(int x,int y) {
+void eraseship(int x, int y) {
 	gotoxy(x, y); printf(" ");
 }
 void setcursor(bool visible)
@@ -33,22 +34,22 @@ void setcolor(int fg, int bg) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, bg * 16 + fg);
 }
-void object(int x,int y){
+void object(int x, int y) {
 	setcolor(0, 8);
 	gotoxy(x, y); printf("  ");
-	
+
 }
 void bullet(int x, int y) {
-	
-	gotoxy(x, y); 
-	setcolor(0, 3); 
+
+	gotoxy(x, y);
+	setcolor(0, 3);
 	printf(" ");
 }
 void erase_bullet(int x, int y) {
 	gotoxy(x, y);
 	setcolor(0, 0);
 	printf(" ");
-	
+
 }
 
 void erase_first_bullet(int x, int y) {
@@ -59,24 +60,27 @@ void erase_first_bullet(int x, int y) {
 }
 
 void shoot(int x1, int y1) {
-	checkShoot = 1;
-	while (1) {
-		if (checkShoot==1) {
-			erase_first_bullet(x1 + 3, y1);
-			bullet(x1 + 3, --y1);
-			checkShoot += 1;
-		}
-		else {
-			erase_bullet(x1 + 3, y1);
-			bullet(x1 + 3, --y1);
-		}
-		
-		Sleep(100);
+	//checkShoot = 1;
+	while (y1) {
+		if (y1 !=0) {
+			if (checkShoot==1) {
+				erase_first_bullet(x1 + 3, y1);
+				bullet(x1 + 3, --y1);
+				checkShoot += 1;
 
+			}
+			else {
+				erase_bullet(x1 + 3, y1);
+				bullet(x1 + 3, --y1);
+			}
+
+			Sleep(100);
+
+		}
 	}
 }
 void check(int x, int y) {
-	if (x==x1 && y==y1 ) {
+	if (x == x1 && y == y1) {
 		printf("  ");
 	}
 
@@ -97,7 +101,7 @@ int main() {
 
 	char keyx = '.';
 
-	
+
 
 	do {
 		if (_kbhit()) {
@@ -140,15 +144,19 @@ int main() {
 				keyx = 's';
 
 			}
+
 			else if (ch == 'i') {
+				checkShoot = 1;
+				previouskeyx = keyx;
 				shoot(x, y);
+				keyx = previouskeyx;
 			}
 			fflush(stdin);
 
 		}
 
 
-		else if (!_kbhit || keyx == 'a' || keyx == 'd' || keyx == 's') {
+		else if (!_kbhit || keyx == 'a' || keyx == 'd' || keyx == 's' || keyx == previouskeyx) {
 
 			if (keyx == 'a') {
 
@@ -185,8 +193,6 @@ int main() {
 				draw_ship(x, y);
 			}
 			/*else if (keyx == 'i') {
-
-
 				if (y ==0 ) {
 					erase_bullet(x + 3, y);
 					y = 20;
@@ -194,20 +200,17 @@ int main() {
 				}
 				else {
 				 erase_bullet(x + 3, y--);
-
 				 bullet(x + 3, --y);
-
 				}
-
 			}*/
-			
-				fflush(stdin);
 
-			}
-			//rocket(x, y);
-			Sleep(100);
-		} while (ch != 'x');
+			fflush(stdin);
 
-		return 0;
+		}
+		//rocket(x, y);
+		Sleep(100);
+	} while (ch != 'x');
 
-	}
+	return 0;
+
+}
